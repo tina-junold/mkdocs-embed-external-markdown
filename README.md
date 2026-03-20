@@ -51,6 +51,23 @@ plugins:
 
 If the GH_TOKEN environment variable is set with an authorized personal access token then the authorization header will be added to the request and content from private repositories can be fetched
 
+## Compatibility with GitLab private repos
+
+If the `GL_TOKEN` environment variable is set (or `gitlab_token` is configured in `mkdocs.yml`), the `PRIVATE-TOKEN` header will be added for requests to GitLab hostnames, allowing content from private repositories to be fetched.
+
+By default, `gitlab.com` is treated as a GitLab host. To add self-hosted GitLab instances, configure `gitlab_hostnames` in `mkdocs.yml`:
+
+```yaml
+plugins:
+  - external-markdown:
+      gitlab_token: !ENV GITLAB_TOKEN
+      gitlab_hostnames:
+        - gitlab.com
+        - git.example.com
+```
+
+Alternatively, set only the `GL_TOKEN` environment variable without any `mkdocs.yml` changes (the default hostname list of `[gitlab.com]` applies).
+
 ## Usage
 
 - Section defined by **"##/###/####..."** header (h2/h3/h4...)
